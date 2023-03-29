@@ -1,28 +1,36 @@
 import styles from '../styles/Home.module.css';
 import { useState, useEffect } from 'react';
+import Cats from "./Cats";
 
 function Home() {
+  const [catList, setCatList] = useState([]);
+  const [competitors, setCompetitors] = useState([]);
 
-const [catList, setCatList] = useState([])
-const [competitors, setCompetitors] = useState([])
+  useEffect(() => {
+    async function getCats() {
+      await fetch("https://catmash-back.vercel.app/cats")
+        .then((response) => response.json())
+        .then((data) => {
+          setCatList(data.cats.sort(() => Math.random() - 0.5).slice(0, 2));
+        });
+    }
+    getCats();
+  }, []);
 
-useEffect(() => {
-  fetch('https://catmash-back.vercel.app/cats')
-    .then(response => response.json())
-    .then(data => {
-setCatList(data.cats.sort(() => Math.random() - 0.5))
-setCompetitors([catList[0], catList[1]])
-    })
-}, []);
 
-console.log(competitors)
+  const cats = catList.map((data, i) => {
+    return <Cats key={i} src={data.url} id={data.id}/>;
+  });
+
+
 
   return (
     <div>
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          CatMash
-        </h1>
+        <h1 className={styles.title}>CatMash</h1>
+        <div className={styles.catsContainer}>
+          {cats}
+        </div>
       </main>
     </div>
   );
