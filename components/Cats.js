@@ -13,6 +13,7 @@ export default function Cats(props) {
       }),
     })
     console.log(id)
+props.refresher()
   }
 
   return (
