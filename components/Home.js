@@ -4,7 +4,7 @@ import Cats from "./Cats";
 
 function Home() {
   const [catList, setCatList] = useState([]);
-  const [competitors, setCompetitors] = useState([]);
+  const [totalVotes, setTotalVotes] = useState(0);
 
   useEffect(() => {
     async function getCats() {
@@ -14,7 +14,16 @@ function Home() {
           setCatList(data.cats.sort(() => Math.random() - 0.5).slice(0, 2));
         });
     }
+    async function getVotes() {
+      await fetch("https://catmash-back.vercel.app/cats/votes")
+        .then((response) => response.json())
+        .then((data) => {
+          setTotalVotes(data.votes[0].vote);
+          console.log(data.votes[0].vote)
+        });
+    }
     getCats();
+    getVotes()
   }, []);
 
 
@@ -31,6 +40,7 @@ function Home() {
         <div className={styles.catsContainer}>
           {cats}
         </div>
+        <button>Voir les plus beaux chats<br/>{totalVotes} votes</button>
       </main>
     </div>
   );
