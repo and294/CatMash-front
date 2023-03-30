@@ -1,16 +1,19 @@
 .catImageContainer {
-    width: 400px;
-    height: 400px;
+    min-width: 200px;
+    max-width: 400px;
+    height: 250px;
     margin: 10%;
+    margin-bottom: 50px;
     cursor: pointer;
 }
 
 .catImage {
     width: 100%;
     height: auto;
+    border-radius: 5px;
+    border: 1px solid white;
 }
 
 .catImageContainer:hover {
     opacity: 0.7;
-
 }

@@ -47,13 +47,13 @@ function Home() {
 
 
   return (
-    <div>
+    <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>CatMash</h1>
         <div className={styles.catsContainer}>
           {cats}
         </div>
-        <Link href='/classement'><button>Voir les plus beaux chats<br/>{totalVotes} votes</button></Link>
+        <Link href='/classement'><button className={styles.btn}><span className={styles.btnText}>Voir les plus beaux chats</span><br/><span className={styles.btnVote}>{totalVotes} votes</span></button></Link>
       </main>
     </div>
   );

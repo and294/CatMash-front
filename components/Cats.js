@@ -29,6 +29,7 @@ props.refresher()
     width="0"
     height="0"
     sizes="100vw"
+    className={styles.catImage}
 />
     </div>
   )

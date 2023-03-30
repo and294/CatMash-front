@@ -21,7 +21,7 @@ export default function Classement() {
 
   const cats = catList.map((data, i) => {
     return (
-      <div>
+      <div className={styles.cat}>
       <div className={styles.catImageContainer}>
         <Image
           key={i}
@@ -33,16 +33,15 @@ export default function Classement() {
           sizes="100vw"
         />
       </div>
-        
         <p>{data.vote} votes</p>
       </div>
     );
   });
 
   return (
-    <div>
-    <Link href='/'><button>Retour aux votes</button></Link>
-      <h1>Classement</h1>
+    <div className={styles.main}>
+    <Link href='/'><button className={styles.btn}>Retour aux votes</button></Link>
+      <h1 className={styles.title}>Classement</h1>
       <div className={styles.listContainer}>
         {cats}
       </div>
