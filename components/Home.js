@@ -1,5 +1,6 @@
 import styles from '../styles/Home.module.css';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import Cats from "./Cats";
 
 function Home() {
@@ -7,6 +8,7 @@ function Home() {
   const [totalVotes, setTotalVotes] = useState(0);
   const [refreshToggle, setRefreshToggle] = useState(false);
 
+  //Récupère la liste des chats et en affiche 2 aléatoirement. Se rafraichit à chaque vote
   useEffect(() => {
     async function getCats() {
       await fetch("https://catmash-back.vercel.app/cats")
@@ -15,6 +17,11 @@ function Home() {
           setCatList(data.cats.sort(() => Math.random() - 0.5).slice(0, 2));
         });
     }
+    getCats();
+  }, [refreshToggle]);
+
+  //Récupère le nombre global de votes lors du chargement de la page
+  useEffect(() => {
     async function getVotes() {
       await fetch("https://catmash-back.vercel.app/cats/votes")
         .then((response) => response.json())
@@ -23,12 +30,13 @@ function Home() {
           console.log(data.votes[0].vote);
         });
     }
-    getCats();
     getVotes();
-  }, [refreshToggle]);
+  }, []);
 
+  //Permet de rafraichir le useEffect affichant les chats
   function refresher() {
     setRefreshToggle(!refreshToggle);
+    setTotalVotes(totalVotes + 1)
   }
 
   const cats = catList.map((data, i) => {
@@ -45,7 +53,7 @@ function Home() {
         <div className={styles.catsContainer}>
           {cats}
         </div>
-        <button>Voir les plus beaux chats<br/>{totalVotes} votes</button>
+        <Link href='/classement'><button>Voir les plus beaux chats<br/>{totalVotes} votes</button></Link>
       </main>
     </div>
   );

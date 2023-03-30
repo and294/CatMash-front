@@ -1,0 +1,11 @@
+.listContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.catImageContainer {
+    width: 100px;
+    height: 100px;
+    margin: 10%;
+    cursor: pointer;
+}
